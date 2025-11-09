@@ -57,6 +57,7 @@ def create_accounts():
 # LIST ALL ACCOUNTS
 ######################################################################
 
+
 @app.route("/accounts", methods=["GET"])
 def list_accounts():
     """
@@ -64,7 +65,7 @@ def list_accounts():
     This endpoint will list all accounts on the service
     """
     app.logger.info("Request to get all Accounts")
-    accounts = Account.all()    
+    accounts = Account.all()
     accounts_list = [account.serialize() for account in accounts]
 
     app.logger.info("Returning list of accounts")
@@ -93,12 +94,13 @@ def get_accounts(account_id):
 # UPDATE AN EXISTING ACCOUNT
 ######################################################################
 
+
 @app.route("/accounts/<int:account_id>", methods=["PUT"])
 def update_accounts(account_id):
     """
     Updates an Account
-    This endpoint will update an Account based on 
-    the data in the body that is posted and the account id 
+    This endpoint will update an Account based on
+    the data in the body that is posted and the account id
     in the route
     """
     app.logger.info("Request to update an Account")
@@ -106,7 +108,7 @@ def update_accounts(account_id):
     account = Account.find(account_id)
     if not account:
         abort(status.HTTP_404_NOT_FOUND, f"Account with id '{account_id}' was not found.")
-    
+
     account.deserialize(request.get_json())
     account.update()
     message = account.serialize()
@@ -117,12 +119,13 @@ def update_accounts(account_id):
 # DELETE AN ACCOUNT
 ######################################################################
 
+
 @app.route("/accounts/<int:account_id>", methods=["DELETE"])
 def delete_accounts(account_id):
     """
     Deletes an Account
-    This endpoint will delete an Account based on 
-    the data in the body that is posted and the account id 
+    This endpoint will delete an Account based on
+    the data in the body that is posted and the account id
     in the route
     """
     app.logger.info("Request to delete an Account")
